@@ -4,8 +4,8 @@ import (
 	"fmt"
 )
 
-func checkNum(mynum int) {
-	for i := 0; i <= mynum; i++ {
+func checkNum(start, end int) {
+	for i := start; i <= end; i++ {
 		if i%2 == 0 {
 			fmt.Println("Even")
 		} else {
@@ -15,6 +15,6 @@ func checkNum(mynum int) {
 }
 func main() {
 	fmt.Println("Main is in control")
-	checkNum(10)
+	checkNum(10, 20)
 	fmt.Println("Back to main")
 }
