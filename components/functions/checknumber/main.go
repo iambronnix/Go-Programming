@@ -4,17 +4,19 @@ import (
 	"fmt"
 )
 
-func checkNum(start, end int) {
-	for i := start; i <= end; i++ {
-		if i%2 == 0 {
-			fmt.Println("Even")
-		} else {
-			fmt.Println("Odd")
-		}
+func checkNum(i int) (int, string) {
+	switch {
+	case i%2 == 0:
+		return i, "even"
+	default:
+		return i, "odd"
+
 	}
+
 }
 func main() {
-	fmt.Println("Main is in control")
-	checkNum(10, 20)
-	fmt.Println("Back to main")
+	for i := 0; i <= 15; i++ {
+		num, result := checkNum(i)
+		fmt.Printf("Results: %d %s\n", num, result)
+	}
 }
