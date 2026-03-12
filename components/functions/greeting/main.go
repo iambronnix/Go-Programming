@@ -5,8 +5,12 @@ import (
 )
 
 func main() {
-	greeting(6, "Meozy")
+	m := "Uncle Bob"
+	greeting(m)
+	fmt.Printf("Hi from main: %s\n", m)
 }
-func greeting(age int, name string) {
-	fmt.Printf("%s is %v months\n", name, age)
+func greeting(name string) {
+	fmt.Printf("%s\n", name)
+	s := "Slacker"
+	fmt.Printf("Greeting %s\n", s)
 }
