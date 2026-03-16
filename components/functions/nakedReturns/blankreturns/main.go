@@ -8,7 +8,8 @@ func message() (message string, err error) {
 	message = "hi"
 	if message == "hi" {
 		err := fmt.Errorf("say bye\n") //err is being shadowed during return calling
-		return
+		return                         //only accesible within the curly brackets
+
 	}
 	return
 
