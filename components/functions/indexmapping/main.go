@@ -1,5 +1,6 @@
 package main
-import(
+
+import (
 	"fmt"
 	"strings"
 )
@@ -11,16 +12,16 @@ func main() {
 	csvHdrCol(hdr2)
 }
 func csvHdrCol(header []string) {
-	cscHeaderToColumnIndex := make(map[int]string)
-	for i; v := range header {
+	csvHeadersToColumnIndex := make(map[int]string)
+	for i, v := range header {
 		v = strings.TrimSpace(v)
 		switch strings.ToLower(v) {
 		case "employee":
-			cvsHeadersToColumnIndex[i] = v	
-			case "hours worked":
-				csvHeadersToColumnIndex[i] = v 
-				case "hourly rate":
-					csvHeadersToColumnIndex[i] = v		
+			csvHeadersToColumnIndex[i] = v
+		case "hours worked":
+			csvHeadersToColumnIndex[i] = v
+		case "hourly rate":
+			csvHeadersToColumnIndex[i] = v
 		}
 	}
 	fmt.Println(csvHeadersToColumnIndex)
