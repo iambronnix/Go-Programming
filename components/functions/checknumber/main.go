@@ -17,7 +17,7 @@ func checkNum(i int) (int, string) {
 func main() {
 	for i := 0; i <= 15; i++ {
 
-		_, result := checkNum(i)
+		_, result := checkNum(i) //i've used blank return to ignore the int return value...alternatively you can parse that int to a parameter and //
 		fmt.Printf("Results:  %s\n", result)
 	}
 }
