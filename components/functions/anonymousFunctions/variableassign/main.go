@@ -8,7 +8,7 @@ func main() {
 
 	}()
 	a := sum(m)
-	fmt.Printf("The sum is: %v\nThe values are:%v\n", a, m)
+	fmt.Printf("The sum is: %v\nThe values are:%v\n", a)
 
 }
 func sum(m ...int) int {
