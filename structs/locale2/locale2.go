@@ -36,7 +36,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	passedLocale := locale{
+	passedLocale := locale{ //anonymous struct type
 		territory: localeParts[1],
 		language:  localeParts[0],
 	}

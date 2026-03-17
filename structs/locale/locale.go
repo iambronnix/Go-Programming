@@ -29,7 +29,7 @@ func getLocale() []locale {
 	return []locale{en_US, en_CN, fr_CN, fr_FR, ru_RU}
 }
 func main() {
-	parsedArg := struct {
+	parsedArg := struct { //anonymous struct
 		language string
 		country  string
 	}{os.Args[1],
