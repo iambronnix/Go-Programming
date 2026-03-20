@@ -4,19 +4,19 @@ import (
 	"fmt"
 )
 
-type bluePrint func(int int) int
-func main(){
-	a1 := salaryCalc(developer,2000,500)
+func main() {
+	devSalary := calcSalary(developerSalary, 80, 8025)
+	bossSalary := calcSalary(200000, 25000, managerSalary)
+	fmt.Printf("Boss salary: %d\n", bossSalary)
+	fmt.Printf("Developer salary: %d\n", devSalary)
 }
-
-func developer(baseSalary, monthlyBonus int) int {
-	totalSalary := baseSalary + monthlyBonus
-	return totalSalary
+func calcSalary(x, y int, f func(int int) int) int {
+	pay := f(x, y)
+	return pay
 }
-func manager(baseSalary, monthlyBonus int) int {
-	totalSalary := baseSalary + monthlyBonus
-	return totalSalary
-func salaryCalc(baseSalary, monthlyBonus int, f bluePrint) {
-	pay := f(baseSalary, monthlyBonus)
-	fmt.Print(b(baseSalary, monthlyBonus))
+func managerSalary(baseSalary, bonus int) int {
+	return baseSalary + bonus
+}
+func developerSalary(hourlyRate, hoursWorked int) int {
+	return hourlyRate * hoursWorked
 }
