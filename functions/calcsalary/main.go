@@ -1,22 +1,27 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
+func calcSalary(f func(int, int) string, j, k int) {
+	fmt.Println(f(j, k))
+}
+func manager(j, k int) string {
+	f := func() string {
+		netSalary := j + k
+		return fmt.Sprintf("Manager\nBasic salary:$%d | Bonus:$%d\nNet salary:$%d\n\nDeveloper", j, k, netSalary)
+	}
+	return f()
+}
+func devSalary(j, k int) string {
+	f := func() string {
+		netsalary := j * k
+		return fmt.Sprintf("Hourly rate:$%d | Hours worked:%d\nNet salary:$%d", j, k, netsalary)
+	}
+	return f()
+
+}
 func main() {
-	devSalary := calcSalary(developerSalary, 80, 8025)
-	bossSalary := calcSalary(200000, 25000, managerSalary)
-	fmt.Printf("Boss salary: %d\n", bossSalary)
-	fmt.Printf("Developer salary: %d\n", devSalary)
-}
-func calcSalary(x, y int, f func(int int) int) int {
-	pay := f(x, y)
-	return pay
-}
-func managerSalary(baseSalary, bonus int) int {
-	return baseSalary + bonus
-}
-func developerSalary(hourlyRate, hoursWorked int) int {
-	return hourlyRate * hoursWorked
+	calcSalary(manager, 150000, 50000)
+	calcSalary(devSalary, 1000, 250)
+
 }
