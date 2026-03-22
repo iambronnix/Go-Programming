@@ -6,9 +6,8 @@ import (
 
 func main() {
 	defer func() {
-		fmt.Println("There goes the anonymous function")
+		fmt.Println("Finally called the anonymous() func")
 	}()
-	fmt.Println("Main: Start")
-	fmt.Println("Main: End")
-
+	fmt.Println("Starting the main() func")
+	fmt.Println("Ending execution of the main() func")
 }

@@ -1,14 +1,12 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func main() {
 	defer done()
-	fmt.Println("Main: Start")
-	fmt.Println("Main: End")
+	fmt.Println("starting the main function")
+	fmt.Println("End of main func")
 }
 func done() {
-	fmt.Println("Now I am done")
+	fmt.Println("func done() got called finally")
 }
