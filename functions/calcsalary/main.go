@@ -2,7 +2,9 @@ package main
 
 import "fmt"
 
-func calcSalary(f func(int, int) string, j, k int) {
+type blueprint func(int, int) string
+
+func calcSalary(f blueprint, j, k int) {
 	fmt.Println(f(j, k))
 }
 func manager(j, k int) string {
