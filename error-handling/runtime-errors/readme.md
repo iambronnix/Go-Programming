@@ -2,3 +2,14 @@
 ->Performing a loop that's bigger than the number of elements inthe slice or array iterating over
 ->Opening a file that doesn't exist
 ->Performing a mathematical operation,such dividing a number by zero
+````````To capture issues more easily before they become runtime errors, it is best to do the following`````````
+->Properly test your code
+->Avoid nil pointer dereferences
+->Use proper input validation as necessary
+->Perform boundary checks to check bounds on data before accessing
+->Use proper synchronization mechanisms
+->Avoid global state
+->Use panic and recover sparingly
+->Conductor thorough code reviews on teammates
+->Use code linters and analyzers
+->Conduct version management for dependencies
