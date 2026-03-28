@@ -10,3 +10,9 @@ func main() {
 	}
 	fmt.Println("Total: ", total)
 }
+
+//can handle the error by using a conditional statement to check if the index is within the valid range before accessing the slice element. For example:
+//*for v := range nums {
+//total += v
+//}
+//fmt.Println("Total: ", v)
