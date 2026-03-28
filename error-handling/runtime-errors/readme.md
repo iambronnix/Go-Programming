@@ -1,0 +1,4 @@
+->Opening a connection to a database that doesn't exist
+->Performing a loop that's bigger than the number of elements inthe slice or array iterating over
+->Opening a file that doesn't exist
+->Performing a mathematical operation,such dividing a number by zero
