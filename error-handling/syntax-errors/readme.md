@@ -1,0 +1,4 @@
+->Incorrect use of syntax for a loop
+->Misplacing or omitting curly braces, parentheses, or brackets
+->Misspelled function names or package names
+->Passing the wrong type of argument to a function
