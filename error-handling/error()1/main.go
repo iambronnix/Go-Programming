@@ -7,7 +7,7 @@ import (
 
 func main() {
 	v := "10"
-	if s, err := strconv.Atoi(v); err == nil {
+	if s, err := strconv.Atoi(v); err == nil { //strconv.Atoi() returns int and an error
 		fmt.Printf("%T, %v\n", s, s)
 
 	} else {
