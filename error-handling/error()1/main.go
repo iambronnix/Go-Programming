@@ -7,15 +7,16 @@ import (
 
 func main() {
 	v := "10"
-	if s, err := strconv.Atoi(v); err == nil { //strconv.Atoi() returns int and an error
+	if s, err := strconv.Atoi(v); err == nil {
 		fmt.Printf("%T, %v\n", s, s)
-
 	} else {
 		fmt.Println(err)
 	}
-	v = "s2"
-	s, err := strconv.Atoi(v)
+
+	v = "golang254"
+	_, err := strconv.Atoi(v)
 	if err != nil {
-		fmt.Println(s, err)
+		fmt.Println(err)
 	}
+
 }
