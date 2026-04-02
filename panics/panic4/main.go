@@ -17,16 +17,19 @@ func main() {
 	fmt.Println(pay)
 }
 func payDay(hoursWorked, hourlyRate int) int {
-	report := func() {
+	report := func() { // provides details of args provided inthe main()...provides insight why the program panics
 		fmt.Printf("HoursWorked: %d\nHourlyRate: %d\n", hoursWorked, hourlyRate)
 	}
 	defer report()
+	// if the data is invalid, the program panics and pass the argument of ErrHoulryRate or ErrHoursWorked
 	if hourlyRate < 10 || hourlyRate > 75 {
 		panic(ErrHourlyRate)
 	}
 	if hoursWorked < 0 || hoursWorked > 80 {
 		panic(ErrHoursWorked)
 	}
+	// if panic occurs, the defer(), report(), will give the caller some insights into why the panic occured
+	//panic will bubble up the stack to the main() function and execution will stop immediately
 	if hoursWorked > 40 {
 		hoursOver := hoursWorked - 40
 		overTime := hoursOver * 2
