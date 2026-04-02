@@ -15,7 +15,7 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	pay, err = payDay(80, 5) //we can reuse the same variables to call payDay() again with different arguments
+	pay, err = payDay(80, 75) //we can reuse the same variables to call payDay() again with different arguments
 	if err != nil {
 		fmt.Println(err)
 	}
