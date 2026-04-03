@@ -5,7 +5,7 @@ import "fmt"
 type Developer struct { //Developer struct has two fields, one is of type Employee and another is of type int and array of int.
 	Individual Employee
 	HourlyRate int
-	WorkWeek   [7]int
+	WorkWeek   [7]int //
 }
 type Employee struct {
 	Id        int
