@@ -11,6 +11,7 @@ var (
 )
 
 func main() {
+	//call payDay() with various args
 	pay := payDay(100, 25)
 	fmt.Println(pay)
 	pay = payDay(100, 200)
@@ -21,8 +22,8 @@ func main() {
 
 func payDay(hoursWorked, hourlyRate int) int {
 	defer func() {
-		if r := recover(); r != nil {
-			if r == ErrHoulryRate {
+		if r := recover(); r != nil { // check for the return value from recovery() func...if r isn't nil, means a panic occurs
+			if r == ErrHoulryRate { //evaluate r and see whether it equals one of the error values- ErrHourlyRate or ErrHoursWorked
 				fmt.Printf("hourly rate: %d\nerr: %v\n\n", hourlyRate, r)
 			}
 			if r == ErrHoursWorked {
