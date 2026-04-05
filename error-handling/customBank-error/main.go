@@ -10,12 +10,6 @@ var (
 	ErrInvalidRoutingNumber = errors.New("invalid routing number")
 )
 
-type directDeposit struct {
-	firstName string
-	lastName  string
-	bankName  string
-}
-
 func main() {
 	err := validateInfo("Erick Ndeto", 12345)
 	fmt.Println(err)
