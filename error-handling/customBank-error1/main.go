@@ -7,7 +7,7 @@ import (
 
 var (
 	ErrInvalidLastName      = errors.New("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ninvalid last name")
-	ErrInvalidRoutingNumber = errors.New("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\ninvalid routing number")
+	ErrInvalidRoutingNumber = errors.New("invalid routing number\n")
 )
 
 type directDeposit struct {
@@ -62,9 +62,9 @@ func (d *directDeposit) validateLastName() error {
 	}
 	return nil
 }
-func (d *directDeposit) report(err error) string {
-	if err != nil {
-		fmt.Printf("%v\n", err)
+func (d *directDeposit) report(error) string {
+	if ErrInvalidLastName != nil || ErrInvalidRoutingNumber != nil {
+		fmt.Printf("%v\n%v", ErrInvalidLastName, ErrInvalidRoutingNumber)
 		fmt.Printf("**************************************************\n")
 		fmt.Printf("\nfirst name: %s\nlastname: %s\nbankname: %s\nRoutingnumber: %d\naccountNumber:%d\n", d.firstName, d.lastName, d.bankName, d.routingNumber, d.accountNumber)
 	}
