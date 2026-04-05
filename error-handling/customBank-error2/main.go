@@ -19,16 +19,16 @@ type directDeposit struct {
 }
 
 func main() {
-	d := directDeposit{firstName: "Erick", lastName: "Ndeto", bankName: "NCBA", routingNumber: 35, accountingNumber: 228993988}
-	defer d.validateLastName()
-	if err := ErrInvalidLastName; err != nil {
-		d.report(err)
+	d := directDeposit{firstName: "Erick", lastName: "Ndeto", bankName: "NCBA", routingNumber: 34443, accountingNumber: 228993988}
+	err := d.validateLastName()
+	if err != nil {
+		fmt.Println(err)
 	}
-	defer d.validateRoutingNumber()
-	if err := ErrInvalidRoutingNumber; err != nil {
-		d.report(err)
-		fmt.Printf("%v\n%v\n%v\n%v\n%v", d.firstName, d.lastName, d.bankName, d.routingNumber, d.accountingNumber)
+	err = d.validateRoutingNumber()
+	if err != nil {
+		fmt.Println(err)
 	}
+	d.report(err)
 
 }
 
@@ -39,17 +39,14 @@ func (d *directDeposit) validateRoutingNumber() error {
 	return nil
 }
 func (d *directDeposit) validateLastName() error {
-	if d.lastName == "" {
+	if len(d.lastName) == 0 {
 		return ErrInvalidLastName
 	}
 	return nil
 }
-func (d *directDeposit) report(error) {
-	if err := ErrInvalidLastName; err != nil {
+func (d *directDeposit) report(err error) {
+	if ErrInvalidLastName != nil || ErrInvalidRoutingNumber != nil {
 		panic(err)
+	}
 
-	}
-	if err := ErrInvalidRoutingNumber; err != nil {
-		panic(err)
-	}
 }
