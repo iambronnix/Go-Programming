@@ -22,12 +22,15 @@ func main() {
 		firstName:        "Erick",
 		lastName:         "Ndeto",
 		bankName:         "NCBA",
-		routingNumber:    21,
+		routingNumber:    23,
 		accountingNumber: 228993988,
 	}
-	err := d.validateLastName()
-	err = d.validateRoutingNumber()
-	d.report(err)
+	if err := d.validateLastName(); err != nil {
+		d.reportPanic(err)
+	}
+	if err := d.validateRoutingNumber(); err != nil {
+		d.reportPanic(err)
+	}
 
 }
 
@@ -43,7 +46,7 @@ func (d *directDeposit) validateLastName() error {
 	}
 	return nil
 }
-func (d *directDeposit) report(err error) {
+func (d *directDeposit) reportPanic(err error) {
 	if ErrInvalidLastName != nil || ErrInvalidRoutingNumber != nil {
 
 		panic(err)
