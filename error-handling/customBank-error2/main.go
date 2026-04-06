@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 )
 
 var (
@@ -19,15 +18,15 @@ type directDeposit struct {
 }
 
 func main() {
-	d := directDeposit{firstName: "Erick", lastName: "Ndeto", bankName: "NCBA", routingNumber: 34443, accountingNumber: 228993988}
+	d := directDeposit{
+		firstName:        "Erick",
+		lastName:         "Ndeto",
+		bankName:         "NCBA",
+		routingNumber:    21,
+		accountingNumber: 228993988,
+	}
 	err := d.validateLastName()
-	if err != nil {
-		fmt.Println(err)
-	}
 	err = d.validateRoutingNumber()
-	if err != nil {
-		fmt.Println(err)
-	}
 	d.report(err)
 
 }
@@ -46,7 +45,7 @@ func (d *directDeposit) validateLastName() error {
 }
 func (d *directDeposit) report(err error) {
 	if ErrInvalidLastName != nil || ErrInvalidRoutingNumber != nil {
+
 		panic(err)
 	}
-
 }
