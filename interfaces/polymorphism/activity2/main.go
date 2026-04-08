@@ -24,12 +24,13 @@ func main() {
 	shapeInfo(t, s, c)
 }
 
-func shapeInfo(shape ...Shaper) {
+func shapeInfo(shape ...Shaper) { //shapeInfo function takes a variable number of Shaper interfaces as an argument and calls the Area method of each Shaper interface and prints the result
 	for _, s := range shape {
 		fmt.Println(s.Area())
 	}
 }
 
+// Area method for the shape  struct calculates the area  and returns a string representation of the area
 func (t triangle) Area() string {
 	area := t.base * t.height * 0.5
 	return fmt.Sprintf("The area of Triangle is %v", area)
