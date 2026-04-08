@@ -8,18 +8,21 @@ type Speaker interface {
 	Speak() string
 }
 type cat struct{}
-type dog struct{}
 type person struct {
 	name string
 }
+type dog struct{}
 
+func saySomething(say ...Speaker) {
+	for _, s := range say {
+		fmt.Println(s.Speak())
+	}
+}
 func main() {
 	c := cat{}
 	d := dog{}
 	p := person{name: "erick"}
-	catSpeak(c)
-	dogSpeak(d)
-	personSpeak(p)
+	saySomething(c, d, p)
 }
 
 func (c cat) Speak() string {
@@ -30,13 +33,4 @@ func (d dog) Speak() string {
 }
 func (p person) Speak() string {
 	return "Hi my name is" + " " + p.name + "."
-}
-func catSpeak(c cat) {
-	fmt.Println(c.Speak())
-}
-func dogSpeak(d dog) {
-	fmt.Println(d.Speak())
-}
-func personSpeak(p person) {
-	fmt.Println(p.Speak())
 }
