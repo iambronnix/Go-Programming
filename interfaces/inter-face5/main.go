@@ -44,5 +44,5 @@ func loadPerson(r io.Reader) (Person, error) {
 	if err != nil {
 		return p, err
 	}
-	return p, err
+	return p, nil
 }
