@@ -8,32 +8,21 @@ import (
 var ErrArray = errors.New("you're passing an empty array ")
 
 func main() {
-	max, _ := findMaxInt([]int{34, 32, 56, 87, 12, 34, 22})
-	max2, _ := findMaxFloat([]float64{63, 23, 34, 54, 67, 31})
+	max, _ := findMaxGeneric([]int{34, 32, 56, 87, 12, 34, 22})
+	max2, _ := findMaxGeneric([]float64{63, 23, 34, 54, 67, 31})
 	fmt.Printf("max float value:%v\nmax int value:%v\n", max2, max)
 }
-func findMaxInt(nums []int) (int, error) {
-	if len(nums) == 0 {
+func findMaxGeneric[Num int | float64](num []Num) (Num, error) {
+	if len(num) == 0 {
 		panic(ErrArray)
 	}
-	max := nums[0]
-	for _, key := range nums {
+	max := num[0]
+	for _, key := range num {
 		if max > key {
 			max = key
 		}
-	}
-	return max, ErrArray
-}
-func findMaxFloat(nums []float64) (float64, error) {
-	if len(nums) == 0 {
-		panic(ErrArray)
 
 	}
-	max := nums[0]
-	for _, num := range nums {
-		if num > max {
-			max = num
-		}
-	}
-	return max, ErrArray
+	return max, nil
+
 }
