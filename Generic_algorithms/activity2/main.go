@@ -19,7 +19,7 @@ func findMinVal[Num int | float64](num []Num) (Num, error) {
 	}
 	min := num[0]
 	for _, key := range num {
-		if min < key {
+		if key < min {
 			min = key
 		}
 	}
