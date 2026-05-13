@@ -6,36 +6,37 @@ import (
 	"os/exec"
 	"syscall"
 	"time"
-
-	u "golang.org/x/sys/unix"
+	"log"
 )
 
-func main() {
-	startTime := time.Now() 
-	killSignal, pid := psKiller()
-	taskTimer(startTime, killSignal,pid)
+func main() {	
+	pid, signal := taskTimer()	
+	defer psKiller(pid, signal)
 	
 	
 }
-func psKiller() (syscall.Signal ,int){// returns a termination signal and pid
-	fmt.Println("Initiating processKiller() on process: \t", u.Getpid())
-	timeLimit := 5 *time.Second
-	time.Sleep(timeLimit)
-    signal := syscall.SIGTERM
-    return  signal, u.Getpid()
-	
-}
-func taskTimer(t time.Time, s syscall.Signal, pid int) {
-	fmt.Println("\nStarting process",pid,"at Start Time", t)
-	f := func(){
-		fmt.Println("executing a remote command")
-	cmd := exec.Command("watch","-n", "1", "lsof")//will never show execution on the terminal...there's termination signal
-    timelimit := 5* time.Second
-   time.Sleep(timelimit)	
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	
+
+func psKiller(pid int ,signal syscall.Signal){// returns a termination signal and pid
+    timeOut := 5 * time.Second
+    log.Println("Off to sleep it's time to kill this process: ", pid)
+   time.Sleep(timeOut)
+  	if err := syscall.Kill(pid, signal); err != nil{
+		fmt.Println("Error killing process: ", pid, err)
 	}
-	f()
 	
+}
+func taskTimer() (int, syscall.Signal){
+	signal := syscall.SIGTERM
+
+		cmd := exec.Command("watch","-n", "1", "pstree")
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		if err := cmd.Start(); err != nil{
+			fmt.Println("Error executing cmd remotely", err)
+		}
+		pid := cmd.Process.Pid
+		log.Println("executing process: ", pid)
+	
+	return pid, signal
+
 }
