@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"syscall"
 	"time"
-	"log"
 )
 
 func main() {	
@@ -26,6 +26,7 @@ func psKiller(pid int ,signal syscall.Signal){// returns a termination signal an
 	
 }
 func taskTimer() (int, syscall.Signal){
+	
 	signal := syscall.SIGTERM
 
 		cmd := exec.Command("watch","-n", "1", "pstree")
