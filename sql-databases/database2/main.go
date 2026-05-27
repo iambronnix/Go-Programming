@@ -29,7 +29,7 @@ func main(){
 	}
 	DBCreate := `
 	CREATE TABLE public.test(
-	id interger,
+	id int,
 	name character varying COLLATE pg_catalog."default"
 	)
 	WITH(
