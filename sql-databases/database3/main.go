@@ -69,6 +69,7 @@ func insertTable(){
 	if err != nil{
 		log.Fatal(err)
 	}
+	defer db.Close()
 	if err = db.Ping();err != nil{
 		fmt.Println("Connection to the DB lost")
 		log.Fatal(err)
@@ -88,6 +89,7 @@ func insertTable(){
 		if err == nil{
 		fmt.Println("The number:",i,"is:",prop)
 		}
+		
 	}
 
 }
