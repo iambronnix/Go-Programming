@@ -4,26 +4,11 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"os"
 	"time"
-
-	u "github.com/joho/godotenv"
+	d "github.com/iambronnix/db"
 	_ "github.com/lib/pq"
 )
-func Init()string{
-	if err := u.Load();err != nil{
-		log.Fatal(err)
-	}
-	dbCreds := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=disable",
-		os.Getenv("DB_USER"),
-		os.Getenv("DB_PASSWORD"),
-		os.Getenv("DB_HOST"),
-		os.Getenv("DB_PORT"),
-		os.Getenv("DB_NAME"),
-	)
-	return dbCreds
-	
-}
+
 func main(){
 	createTable()
 	time.Sleep(5*time.Second)
@@ -31,7 +16,10 @@ func main(){
 }
 func createTable(){
 	fmt.Println("Creating db......")
-	dbCreds := Init()
+	dbCreds,err := d.Config()
+	if err != nil{
+		log.Fatal(err)
+	}
 	db, err := sql.Open("postgres",dbCreds)
 	if err != nil{
 		log.Fatal(err)
@@ -63,8 +51,11 @@ func createTable(){
 	
 }
 func insertTable(){
+	 dbCreds, err := d.Config() 
+		if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Println("landed on insertTable() func")//used as a marker for debugging only
-	dbCreds := Init()
 	db, err := sql.Open("postgres", dbCreds)
 	if err != nil{
 		log.Fatal(err)
