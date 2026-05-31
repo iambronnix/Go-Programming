@@ -8,9 +8,11 @@ import (
 func main(){
 	f, err := os.Create(cmd())
 	if err != nil{
-		fmt.Println("Error creating file", err)
+		panic(err)
 	}
 	defer f.Close()
+	f.Write([]byte("using write() to write some text into the file.\n"))
+	f.WriteString("usig writestring() to write into the file created.\n")
 }
 func cmd()string{
 	time.Sleep(1*time.Second)
