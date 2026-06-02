@@ -16,17 +16,9 @@ func main(){
 }
 	
 func updateTable(){
-	dbCreds, err := d.Config()
-	if err != nil{
-		log.Fatal(err)
-	}
-	fmt.Println(dbCreds)
-	db, err := sql.Open("postgres", dbCreds)
-	if err != nil{
-		log.Fatal(err)
-	}
+	db,err := dbConnection()
 	defer db.Close()
-	fmt.Printf("Connection to db was successfully initialised!!!\n")
+	fmt.Printf("........Connection to db was successfully initialised........\n")
 	updateStatement := `
 	UPDATE test(
 	SET name = $1
@@ -50,15 +42,12 @@ func updateTable(){
 	
 }
 func deleteTable(){
-	dbCreds, err  := d.Config()
+	db, err := dbConnection()
 	if err != nil{
-		log.Fatal(err)
-	}
-	db, err := sql.Open("postgres", dbCreds)
-	if err != nil{
-		log.Fatal(err)
+		panic(err)
 	}
 	defer db.Close()
+	fmt.Println("........Connection to db was successfully initialiased.......")
 	deleteStatement := `
 	DELETE FROM test
 	WHERE id = $1
@@ -72,4 +61,12 @@ func deleteTable(){
 		panic(deletedRecordsErr)
 	}
 	fmt.Println("Number of records deleted: ",deletedRecords)
+}
+func dbConnection()(*sql.DB ,error){
+	dbCreds, err := d.Config()
+	if err != nil{
+		log.Fatal(err)
+	}
+	db,err := sql.Open("postgres", dbCreds)
+	return db, nil
 }
