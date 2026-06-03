@@ -4,21 +4,21 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"time"
 	_ "github.com/lib/pq"
 	d "github.com/iambronnix/db"
 )
 func main(){
 	fmt.Println("Initialising the database creds")//just for fun
-	time.Sleep(5 * time.Second)//also this
+	if _, dbErr := dbConnection();dbErr!=nil{
+		log.Fatal(dbErr)
+	}
 	updateTable()//updates specific data from the database
 	deleteTable()//deletes specific data from the database
 }
 	
 func updateTable(){
-	db,err := dbConnection()
+	db,_ := dbConnection()
 	defer db.Close()
-	fmt.Printf("........Connection to db was successfully initialised........\n")
 	updateStatement := `
 	UPDATE test(
 	SET name = $1
@@ -26,11 +26,6 @@ func updateTable(){
 	)
 	`
 	updateResult, updateResultErr := db.Exec(updateStatement)
-	if err = db.Ping(); err != nil{
-		fmt.Println("......Connection lost.....")
-	}else{
-		fmt.Println("database still connected...good to go")
-	}
 	if updateResultErr!= nil{
 		panic(updateResultErr)
 	}
@@ -42,10 +37,8 @@ func updateTable(){
 	
 }
 func deleteTable(){
-	db, err := dbConnection()
-	if err != nil{
-		panic(err)
-	}
+	db,_:= dbConnection()
+
 	defer db.Close()
 	fmt.Println("........Connection to db was successfully initialiased.......")
 	deleteStatement := `
@@ -67,6 +60,9 @@ func dbConnection()(*sql.DB ,error){
 	if err != nil{
 		log.Fatal(err)
 	}
-	db,err := sql.Open("postgres", dbCreds)
+	db,sqlErr := sql.Open("postgres", dbCreds)
+	if sqlErr!= nil{
+		log.Fatal(sqlErr)
+	}
 	return db, nil
 }
