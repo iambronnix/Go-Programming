@@ -1,5 +1,5 @@
-github.com/iambronnix/db v0.0.0-20260601065848-5c38e6362233 h1:UzI/JN+iW7NdOi/tJCuy1ppCO0mn1v8nPpjJ3RECvsM=
-github.com/iambronnix/db v0.0.0-20260601065848-5c38e6362233/go.mod h1:/26pyAK3Ypb5O0i5rFx5WL5EMfLEgAWRnI4snCGU7KE=
+github.com/iambronnix/db v1.0.2 h1:nNSwFF8/HXD7Gm+UoTx4Ki7KJc78qROJsqkNvGmVhpo=
+github.com/iambronnix/db v1.0.2/go.mod h1:/26pyAK3Ypb5O0i5rFx5WL5EMfLEgAWRnI4snCGU7KE=
 github.com/joho/godotenv v1.5.1 h1:7eLL/+HRGLY0ldzfGMeQkb7vMd0as4CfYvUVzLqw0N0=
 github.com/joho/godotenv v1.5.1/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=
 github.com/lib/pq v1.12.3 h1:tTWxr2YLKwIvK90ZXEw8GP7UFHtcbTtty8zsI+YjrfQ=
