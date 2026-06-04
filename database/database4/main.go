@@ -1,11 +1,10 @@
 package main
 
 import (
-	"database/sql"
+	
 	"fmt"
-	"log"
-    d "github.com/iambronnix/db"	
-	_ "github.com/lib/pq"
+
+   db "github.com/iambronnix/db" 
 )
 
 func main(){
@@ -14,15 +13,7 @@ func main(){
 	queryTable(id, name)
 }
 func queryTable(id int, name string){
-	dbCreds, err := d.Config()
-	if err != nil{
-		log.Fatal(err)
-	}
-	db, err := sql.Open("postgres",dbCreds)
-	if err != nil{
-		log.Fatal(err)
-	}
-	fmt.Println("Connection to postgres was successfully initialized")
+	db,_ := db.Config()
 	defer db.Close()
 	 rows, err := db.Query("SELECT * FROM Number")
 		if err != nil{
