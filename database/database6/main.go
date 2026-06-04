@@ -1,12 +1,9 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
-	"log"
 	"math/big"
-
-	d "github.com/iambronnix/db"
+	db "github.com/iambronnix/db"
 )
 
 var (
@@ -17,20 +14,16 @@ var (
 )
 
 func main() {
-	if _, err := dbConnection(); err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("....Connection to the database established successfully....")
 	getPrimeNumbers()
 	removeEvenNumbers()
 	updateRecords()
 
 }
 func getPrimeNumbers() {
-	db, _ := dbConnection()
+	db, _ := db.Config()
 	defer db.Close()
 	allTheNumbers := `
-	SELECT * FROM Numbers
+	SELECT * FROM number
 	`
 	numbers, prepareErr := db.Prepare(allTheNumbers)
 	if prepareErr != nil {
@@ -58,9 +51,9 @@ func getPrimeNumbers() {
 	}
 }
 func removeEvenNumbers() {
-	db, _ := dbConnection()
+	db, _ := db.Config()
 	defer db.Close()
-	remove := "DELETE FROM Numbers WHERE Property=$1"
+	remove := "DELETE FROM number WHERE Property=$1"
 	removeResult, removeErr := db.Exec(remove)
 	if removeErr != nil {
 		panic(removeErr)
@@ -73,9 +66,9 @@ func removeEvenNumbers() {
 	fmt.Println("Updating numbers....")
 }
 func updateRecords() {
-	db, _ := dbConnection()
+	db, _ := db.Config()
 	defer db.Close()
-	update := `UPDATE Numbers SET Number=$1 WHERE Number = $2 AND Property=$3`
+	update := `UPDATE number SET Number=$1 WHERE Number = $2 AND Property=$3`
 	allTheNumbers := `SELECT * FROM Numbers`
 	numbers, prepareErr := db.Prepare(allTheNumbers)
 	if prepareErr != nil {
@@ -101,23 +94,4 @@ func updateRecords() {
 	}
 	fmt.Println("The exection is now complete...")
 
-}
-func dbConnection() (*sql.DB, error) {
-	dbCreds, dbErr := d.Config()
-	if dbErr != nil {
-		panic(dbErr)
-	}
-	db, sqlErr := sql.Open("postgres", dbCreds)
-	if sqlErr != nil {
-		panic(sqlErr)
-	}
-	defer func() {
-		if pingErr := db.Ping(); pingErr != nil {
-			fmt.Println("....Connection to the database lost.....")
-		} else {
-			fmt.Printf("Connection is stable....check database credentials")
-		}
-
-	}()
-	return db, nil
 }
