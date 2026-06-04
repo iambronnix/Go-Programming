@@ -1,12 +1,11 @@
 package main
 
 import (
-	"database/sql"
+	
 	"fmt"
-	"log"
 	"time"
-	d "github.com/iambronnix/db"
-	_ "github.com/lib/pq"
+	db "github.com/iambronnix/db"
+
 )
 
 func main(){
@@ -15,15 +14,7 @@ func main(){
 	insertTable()
 }
 func createTable(){
-	fmt.Println("Creating db......")
-	dbCreds,err := d.Config()
-	if err != nil{
-		log.Fatal(err)
-	}
-	db, err := sql.Open("postgres",dbCreds)
-	if err != nil{
-		log.Fatal(err)
-	}
+    db , _ := db.Config()
 	dbTable := `
 	CREATE TABLE Numbers(
 	Number int NOT NULL,
@@ -36,35 +27,23 @@ func createTable(){
 	ALTER TABLE Number
 	OWNER to postgres;
 	`
-	defer func(){
+	defer func(){//this recover and ensure insertTable() is executed in case of a panic
 		if err := recover();err !=nil{
 			fmt.Println("error creating table")
 		}
 	}()
 	defer db.Close()
-	_, err = db.Exec(dbTable)
-	if err != nil{
-		panic(err)
+	_, sqlErr := db.Exec(dbTable)
+	if sqlErr != nil{
+		panic(sqlErr)//will panic coz proably the table exists
 	}else{
 		fmt.Println("The table called Number was successfully created")
 	}
 	
 }
 func insertTable(){
-	 dbCreds, err := d.Config() 
-		if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("landed on insertTable() func")//used as a marker for debugging only
-	db, err := sql.Open("postgres", dbCreds)
-	if err != nil{
-		log.Fatal(err)
-	}
+	db, _ := db.Config()
 	defer db.Close()
-	if err = db.Ping();err != nil{
-		fmt.Println("Connection to the DB lost")
-		log.Fatal(err)
-	}
 	insert , insertErr := db.Prepare("INSERT INTO Number VALUES($1, $2)")
 	if insertErr != nil{
 		panic(insertErr)
@@ -76,7 +55,7 @@ func insertTable(){
 		}else{
 			prop = "Odd"
 		}
-		_, err = insert.Exec(i, prop)
+		_, err := insert.Exec(i, prop)
 		if err == nil{
 		fmt.Println("The number:",i,"is:",prop)
 		}
