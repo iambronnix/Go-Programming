@@ -17,6 +17,9 @@ func main(){
 	log.Println(s1)
 }
 func sum(from , to int, wg *sync.WaitGroup, res *int32){
+	//if you remove sync/atomic import and change to 
+	// *res = *res + int32(i)
+	// the test fails
 	for i := from;i <=to; i++{
 		atomic.AddInt32(res, int32(i))//adds value i to res and updates the new value
 	}
