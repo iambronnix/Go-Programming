@@ -45,7 +45,7 @@ func (w *Worker) readThem(){
 			partial += i
 		}
 		w.out <- partial
-		w.mtx.Lock()//obtain the Worker resource routine lock and decrement the sub workers
+	w.mtx.Lock()//locked the routine,reduced the counter on the sub-workers safely
 		w.sbw--
 		if w.sbw == 0{//incase all workers have terminated, close  the output channel
 			close(w.out)
