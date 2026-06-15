@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"time"
@@ -15,6 +16,12 @@ func main(){
 	f.WriteString("usig writestring() to write into the file created.\n")
 }
 func cmd()string{
+	f := os.Stdin
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan(){
+		////scanning from standard input
+		// 
+	}
 	time.Sleep(1*time.Second)
 	filename := os.Args[1]
 	fmt.Printf("file %s created\n", os.Args[1])
