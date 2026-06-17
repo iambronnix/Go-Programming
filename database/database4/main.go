@@ -1,10 +1,9 @@
 package main
 
 import (
-	
 	"fmt"
 
-   db "github.com/iambronnix/db" 
+	db "github.com/iambronnix/db"
 )
 
 func main(){
@@ -12,6 +11,7 @@ func main(){
 	var name string
 	queryTable(id, name)
 }
+
 func queryTable(id int, name string){
 	db,_ := db.Config()
 	defer db.Close()
