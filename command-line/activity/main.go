@@ -27,7 +27,7 @@ func psKiller(){// sends termination signal to the process running inthe backgro
 }
 func executeTask(){
 	
-		cmd := exec.Command(os.Args[1],os.Args...)
+		cmd := exec.Command(os.Args[0],os.Args...)
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		if err := cmd.Start(); err != nil{//starts the process
