@@ -33,7 +33,7 @@ func taskTimer() (int, syscall.Signal){
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		if err := cmd.Start(); err != nil{
-			fmt.Println("Error executing cmd remotely", err)
+			fmt.Fprintf(os.Stderr,"%v", err)
 		}
 		pid := cmd.Process.Pid
 		log.Println("executing process: ", pid)
