@@ -8,36 +8,50 @@ import (
 	"syscall"
 	"time"
 )
+var	processId = make(chan int)
+
 
 func main() {	
-	pid, signal := taskTimer()	
-	defer psKiller(pid, signal)
-	
+	//synchronous goroutines
+	go psKiller()
+	executeTask()
+	  	
 	
 }
 
-func psKiller(pid int ,signal syscall.Signal){// returns a termination signal and pid
-    timeOut := 5 * time.Second
-    log.Println("Off to sleep it's time to kill this process: ", pid)
-   time.Sleep(timeOut)
-  	if err := syscall.Kill(pid, signal); err != nil{
-		fmt.Println("Error killing process: ", pid, err)
+func psKiller(){// returns a termination signal and pid
+	pid := <- processId //receives pid of the current running process inthe terminal
+	
+	log.Println("Off to sleep it's time to kill this process: ", pid)
+   	if err := syscall.Kill(pid,syscall.SIGTERM); err != nil{//sends a termination signal
+   fmt.Fprintf(os.Stderr,"%v",err)
 	}
 	
 }
-func taskTimer() (int, syscall.Signal){
+func executeTask(){
 	
-	signal := syscall.SIGTERM
-
-		cmd := exec.Command(os.Args[1],os.Args[2],os.Args[3],os.Args[4])
+        cmd := exec.Command(os.Args[0],os.Args[1],os.Args[2])
 		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
-		if err := cmd.Start(); err != nil{
-			fmt.Println("Error executing cmd remotely", err)
+		if err := cmd.Start();err != nil{//starts the process 
+			fmt.Fprintf(os.Stderr,"%v",err)		
 		}
-		pid := cmd.Process.Pid
-		log.Println("executing process: ", pid)
-	
-	return pid, signal
+		pid := cmd.Process.Pid//get process-id of the process being executed inthe terminal	
+	    log.Println("executing process: \n", pid)
 
+		time.Sleep(5*time.Second)//psKiller is delayed before receiving pid
+			
+		processId <- pid//sends pid of running process
+		
 }
+
+//input := os.Stdin
+	//	scanner := bufio.NewScanner(input)
+		//for scanner.Scan(){
+//scanErr := scanner.Err()
+	//	if scanErr == io.EOF{
+		//	break
+		//}else{
+			//continue
+		//}
+		
+//	}
