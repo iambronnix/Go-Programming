@@ -2,7 +2,7 @@ package main
 
 import "sync"
 
-func fanIn(channels ...chan int){
+func fanIn(channels ...chan int)chan int{
 	 var wg sync.WaitGroup
 		muxedStream := make(chan int)
 		output := func(c chan int){//sub-worker to get values from each channel
@@ -18,4 +18,5 @@ func fanIn(channels ...chan int){
 		go func(){
 			wg.Wait()
 		}()
+		return muxedStream
 	} 
